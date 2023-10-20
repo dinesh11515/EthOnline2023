@@ -9,9 +9,9 @@ exports.getDB = async () => {
   const wallet = new Wallet(privateKey);
 
   const provider = getDefaultProvider(process.env.ALCHEMY_KEY);
+
   const signer = wallet.connect(provider);
 
   const db = new Database({ signer });
-
   return db;
 };

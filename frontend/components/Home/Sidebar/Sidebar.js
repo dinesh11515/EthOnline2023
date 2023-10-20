@@ -12,9 +12,9 @@ const links = [
     link: '/',
   },
   {
-    name: 'Dashboard',
+    name: 'NFTs',
     icon: <RxDashboard size={20} />,
-    link: '/dashboard',
+    link: '/nfts',
   },
   {
     name: 'Info',

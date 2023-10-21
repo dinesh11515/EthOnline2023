@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { RiHomeLine } from 'react-icons/ri';
 import { RxDashboard } from 'react-icons/rx';
 import { IoMdSettings } from 'react-icons/io';
-import { GrInfo } from 'react-icons/gr';
+import { MdCreateNewFolder } from 'react-icons/md';
 import Link from 'next/link';
 
 const links = [
@@ -18,8 +18,8 @@ const links = [
   },
   {
     name: 'Info',
-    icon: <GrInfo size={20} />,
-    link: '/info',
+    icon: <MdCreateNewFolder size={20} />,
+    link: '/create',
   },
   {
     name: 'Settings',

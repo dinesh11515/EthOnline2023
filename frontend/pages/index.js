@@ -5,12 +5,12 @@ const data = [
   {
     id: '1',
     nftName: 'The Close',
-    imgUrl: '/assets/nft5.jpeg',
+    imgUrl: '/assets/nft9.gif',
   },
   {
     id: '2',
     nftName: 'The Blue',
-    imgUrl: '/assets/nft4.gif',
+    imgUrl: '/assets/nft5.jpeg',
   },
   {
     id: '3',
@@ -25,7 +25,7 @@ const data = [
   {
     id: '5',
     nftName: 'Halo 5',
-    imgUrl: '/assets/nft5.jpeg',
+    imgUrl: '/assets/nft4.gif',
   },
   {
     id: '6',

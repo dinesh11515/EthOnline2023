@@ -95,6 +95,7 @@ const BuyModal = ({ onClose }) => {
                     onChange={(e) => {
                       setGroupName(e.target.value);
                     }}
+                    value={groupName}
                     type={'text'}
                     placeholder='Bored Ape Club'
                     className='w-full bg-gray-200 py-3 px-2 mt-1 outline-none rounded-md'
@@ -111,6 +112,7 @@ const BuyModal = ({ onClose }) => {
                       onChange={(e) => {
                         setGroupCapacity(e.target.value);
                       }}
+                      value={groupCapacity}
                       type={'number'}
                       placeholder='4'
                       onWheel={(e) => e.target.blur()}
@@ -125,6 +127,7 @@ const BuyModal = ({ onClose }) => {
 
                     <select
                       className='w-full text-sm bg-gray-200 py-3 px-2 mt-1 outline-none rounded-md'
+                      value={chain}
                       onChange={(e) => {
                         setChain(e.target.value);
                       }}>

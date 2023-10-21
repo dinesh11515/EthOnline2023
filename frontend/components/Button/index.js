@@ -11,8 +11,8 @@ import { useEffect } from "react";
 const HomeButton = () => {
   const web3auth = new Web3Auth({
     clientId:
-      "BG8P7ILQX2ffNtVWYjLaH4es1WAd3hCdQuYAPhrEoaZ5FpJrXIYiTXqHUlpM9ToGTg2iKUQH7sGL-LOHSf2IM18", // Get your Client ID from the Web3Auth Dashboard
-    web3AuthNetwork: "sapphire_mainnet", // Web3Auth Network
+      "BIZm1vc6ByCE3uK4BKlhr0elselEFtvVgEQMcLUEomMz1UndstZFByiSGIfiT1rRTd2DqU3pR62l8VHHKc4B-g8", // Get your Client ID from the Web3Auth Dashboard
+    web3AuthNetwork: "sapphire_devnet", // Web3Auth Network
     chainConfig: {
       chainNamespace: "eip155",
       chainId: "0x13881",
@@ -23,9 +23,11 @@ const HomeButton = () => {
       tickerName: "Matic",
     },
   });
+  console.log(web3auth);
   useEffect(() => {
     (async () => {
       await web3auth.initModal();
+      console.log(web3auth);
     })();
   }, []);
 

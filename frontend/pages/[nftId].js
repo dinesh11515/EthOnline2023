@@ -1,7 +1,11 @@
-import React from 'react';
-
+import React from "react";
+import HomeButton from "@/components/Button";
 const NFT = () => {
-  return <div>NFT</div>;
+  return (
+    <div>
+      <HomeButton />
+    </div>
+  );
 };
 
 export default NFT;

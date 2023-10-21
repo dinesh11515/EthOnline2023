@@ -2,18 +2,20 @@ const express = require("express");
 
 const {
   createTableController,
-  insertData,
-  getDataFromWalletAddress,
-  getDataFromSafeAddress,
   createNewMap,
+  addNewHolder,
+  addSafeAddress,
+  getAllMapsFromNft,
+  getAllNfts,
 } = require("../controllers/database");
 
 const app = express.Router();
 
 app.get("/create-table", createTableController);
-app.post("/insert-data", insertData);
-app.get("/get-data-from-wallet-address/:address", getDataFromWalletAddress);
-app.get("/get-data-from-safe-address/:safeAddress", getDataFromSafeAddress);
 app.post("/create-map", createNewMap);
+app.post("/new-holder", addNewHolder);
+app.post("/safe-address", addSafeAddress);
+app.get("/all/:nft_address", getAllMapsFromNft);
+app.get("/nft", getAllNfts);
 
 module.exports = app;

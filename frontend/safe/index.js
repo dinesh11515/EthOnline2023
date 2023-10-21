@@ -35,7 +35,7 @@ const deploySafe = async (owners, privateKey, providerUrl) => {
       gasLimit: 10000000,
     },
   });
-
+  console.log("owner is", safeSdkOwner1);
   localStorage.setItem("safe", safeSdkOwner1);
 
   const newSafeAddress = await safeSdkOwner1.getAddress();

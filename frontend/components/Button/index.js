@@ -2,13 +2,14 @@
 
 import EthereumRpc from "@/constants/ethersRPC";
 import { Web3Auth } from "@web3auth/modal";
-import { ethers } from "ethers";
+import { useContext } from "react";
+import { StateContext } from "@/store/StateContext";
 
 import { useEffect, useState } from "react";
 // BG8P7ILQX2ffNtVWYjLaH4es1WAd3hCdQuYAPhrEoaZ5FpJrXIYiTXqHUlpM9ToGTg2iKUQH7sGL-LOHSf2IM18
 
 const HomeButton = () => {
-  const [rpc, setRpc] = useState(null);
+  const ctx = useContext(StateContext);
 
   let web3auth;
   useEffect(() => {
@@ -39,14 +40,14 @@ const HomeButton = () => {
 
     const rpcInfo = new EthereumRpc(provider);
 
-    setRpc(rpcInfo);
+    ctx.setRpc(rpcInfo);
   };
 
   const getInfoHandler = async () => {
     const info = await web3auth.getUserInfo();
     console.log(info);
 
-    const accounts = await rpc.getAccounts();
+    const accounts = await ctx.rpc.getAccounts();
     console.log(accounts);
   };
 

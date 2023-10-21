@@ -1,38 +1,35 @@
+"use client";
+
 import BuyButton from "@/components/BuyButton/BuyButton";
 import GroupItem from "@/components/GroupItem/GroupItem";
+import { SERVER_URL } from "@/constants";
 import Image from "next/image";
-import React, { useState } from "react";
-
-const groups = [
-  {
-    id: "1",
-    name: "Bored Ape Yacht Club",
-    joined: 4,
-    capacity: 10,
-  },
-  {
-    id: "1",
-    name: "Bored Ape Yacht Club",
-    joined: 4,
-    capacity: 10,
-  },
-  {
-    id: "1",
-    name: "Bored Ape Yacht Club",
-    joined: 4,
-    capacity: 10,
-  },
-  {
-    id: "1",
-    name: "Bored Ape Yacht Club",
-    joined: 4,
-    capacity: 10,
-  },
-];
+import { useRouter } from "next/router";
+import React, { useEffect, useState } from "react";
 
 const NFT = () => {
   const [showDetails, setShowDetails] = useState(true);
   const [showGroups, setShowGroups] = useState(false);
+  const [groups, setGroups] = useState([]);
+  const router = useRouter();
+  console.log("ere");
+
+  const { nftId } = router.query;
+
+  const getGroupsData = async () => {
+    console.log("here");
+    const data = await fetch(`${SERVER_URL}/all/${nftId}`, {
+      cache: "no-store",
+    });
+
+    const response = await data.json();
+
+    setGroups(response.allMaps);
+  };
+
+  useEffect(() => {
+    getGroupsData();
+  }, []);
 
   return (
     <div className="py-10">

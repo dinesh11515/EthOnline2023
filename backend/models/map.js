@@ -1,6 +1,9 @@
 const { Schema, default: mongoose } = require("mongoose");
 
 const mapSchema = new Schema({
+  group_name: {
+    type: String,
+  },
   nft_address: {
     type: String,
   },

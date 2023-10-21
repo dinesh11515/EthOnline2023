@@ -10,10 +10,10 @@ export default class EthereumRpc {
   async getChainId() {
     try {
       // For ethers v5
-      // const ethersProvider = new ethers.providers.Web3Provider(this.provider);
-      const ethersProvider = new ethers.providers.JsonRpcProvider(
-        this.provider
-      );
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+      // const ethersProvider = new ethers.providers.JsonRpcProvider(
+      //   this.provider
+      // );
       // Get the connected Chain's ID
       const networkDetails = await ethersProvider.getNetwork();
       return networkDetails.chainId;
@@ -25,10 +25,10 @@ export default class EthereumRpc {
   async getAccounts() {
     try {
       // For ethers v5
-      // const ethersProvider = new ethers.providers.Web3Provider(this.provider);
-      const ethersProvider = new ethers.providers.JsonRpcProvider(
-        this.provider
-      );
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+      // const ethersProvider = new ethers.providers.JsonRpcProvider(
+      //   this.provider
+      // );
 
       // For ethers v5
       // const signer = ethersProvider.getSigner();

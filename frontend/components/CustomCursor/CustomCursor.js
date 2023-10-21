@@ -18,7 +18,6 @@ const CustomCursor = () => {
   useEffect(() => {
     addEventListener('mousemove', (event) => {
       const { clientX, clientY } = event;
-      console.log(event);
 
       const mouseX = clientX;
       const mouseY = clientY;

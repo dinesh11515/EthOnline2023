@@ -28,6 +28,7 @@ const HomeButton = () => {
         },
       });
       await web3auth.initModal();
+      console.log(web3auth);
     })();
   }, []);
 

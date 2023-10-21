@@ -12,6 +12,7 @@ export default class EthereumRpc {
       // For ethers v5
       const ethersProvider = new ethers.providers.Web3Provider(this.provider);
       // const ethersProvider = new ethers.providers.Web3Provider(
+      // const ethersProvider = new ethers.providers.JsonRpcProvider(
       //   this.provider
       // );
       // Get the connected Chain's ID

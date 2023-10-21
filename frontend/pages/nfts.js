@@ -76,7 +76,7 @@ const Nfts = () => {
         Enjoy the latest NFTs from ApeCoin
       </p>
 
-      <div className='flex gap-4 flex-wrap mt-6'>
+      <div className='flex gap-8 flex-wrap mt-6'>
         {DEMO_NFTS.map((nft) => (
           <NFTCard
             key={nft.id}

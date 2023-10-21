@@ -32,7 +32,7 @@ const Sidebar = () => {
   const router = useRouter();
 
   return (
-    <div className='flex flex-col gap-2 w-fit fixed top-[50%] -translate-y-[50%] mx-10'>
+    <div className='flex flex-col gap-2 w-fit fixed top-[50%] -translate-y-[50%] mx-6'>
       {links.map((link) => (
         <Link
           href={link.link}

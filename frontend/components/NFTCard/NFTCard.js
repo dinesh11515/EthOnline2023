@@ -1,9 +1,15 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import React from 'react';
 
 const NFTCard = ({ imgUrl, name, price, address, dollarPrice }) => {
+  const router = useRouter();
   return (
-    <div className=' flex flex-col font-Poppins rounded-xl w-fit overflow-hidden hover:scale-[1.01] transition-all ease-in-out shadow-xl'>
+    <div
+      onClick={() => {
+        router.push(`/${address}`);
+      }}
+      className=' flex flex-col font-Poppins rounded-xl w-fit overflow-hidden hover:scale-[1.01] transition-all ease-in-out shadow-xl'>
       <div className='w-[300px]  bg-[white] '>
         <Image
           alt='img'

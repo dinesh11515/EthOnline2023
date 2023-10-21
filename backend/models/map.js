@@ -12,6 +12,9 @@ const mapSchema = new Schema({
   safe_address: {
     type: String,
   },
+  threshold: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("Map", mapSchema);

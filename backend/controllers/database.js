@@ -1,8 +1,9 @@
-const { Database } = require("@tableland/sdk");
 const { getDB } = require("../constants/getDB");
 const { table_name } = require("../constants/index");
 const Map = require("../models/map");
+const { v4 } = require("uuid");
 
+//creates the nft table
 exports.createTableController = async (req, res, next) => {
   const db = await getDB();
 
@@ -15,77 +16,114 @@ exports.createTableController = async (req, res, next) => {
     )
     .run();
 
-  console.log("create", create);
+  console.log("create nft table", create);
 
   const { meta: create1 } = await db
     .prepare(`CREATE TABLE holders holder_id text primary key;`)
     .run();
-  console.log("create", create1);
+  console.log("create holder table", create1);
 
   return res.status(201).json({ message: "Table created" });
 };
+///the upper one should only be used once
 
-exports.insertNft = async (req, res, next) => {
-  const { randomVal, nft_name, nft_address, chain_id } = req.body;
+//adds new holder address in tableland DB
+exports.addNewHolder = async (req, res, next) => {
+  const { holder_address } = req.params;
+  try {
+    const db = await getDB();
+    const holder_table_name = "";
 
-  const db = await getDB();
+    const alreadyInfo = await db
+      .prepare(`SELECT * FROM ${holder_table_name} WHERE holder_id = ?1`)
+      .bind(holder_address)
+      .all();
 
-  const table_name = "";
+    if (alreadyInfo.results.length > 0) {
+      return res.status(400).json({ message: "Address already exist" });
+    }
 
-  const { meta: create } = await db
-    .prepare(
-      `INSERT INTO ${table_name} (nft_id text primary key, nft_name text, nft_address text, chain_id string) VALUES (?1, ?2, ?3, ?4)`
-    )
-    .bind(randomVal, nft_name, nft_address, chain_id)
-    .run();
+    const info = await db
+      .prepare(`INSERT INTO ${holder_table_name} (holder_id) VALUES (?1)`)
+      .bind(holder_address)
+      .run();
 
-  const newMap = new Map({
-    nft_id: randomVal,
-  });
-
-  await newMap.save();
-
-  return res.status(201).json({ message: "Done" });
+    return res.status(201).json({ message: "Successfully added new address" });
+  } catch (error) {
+    console.log("error is", error);
+  }
 };
 
-exports.insertData = async (req, res, next) => {
-  const { randomVal, address, safeAddress } = req.body;
-  const db = await getDB();
+//creates the new map and add the nft into tableland if doesn't exist already
+exports.createNewMap = async (req, res, next) => {
+  const { nft_address, holder_address, threshold, chain_id } = req.body;
 
-  const tableName = table_name;
+  try {
+    const db = await getDB();
 
-  const info = await db
-    .prepare(
-      `INSERT INTO ${tableName} (random_val, address, safeAddress) VALUES (?1, ?2, ?3);`
-    )
-    .bind(randomVal, address, safeAddress)
-    .run();
+    const table_name = "";
 
-  return res.status(201).json({ message: "Address created", info });
+    const holder_table_name = "";
+
+    const data = await db
+      .prepare(`SELECT * FROM ${table_name} WHERE nft_address = ?1`)
+      .bind(nft_address)
+      .all();
+
+    if (data.results.length === 0) {
+      const info = await db
+        .prepare(
+          `INSERT INTO ${table_name} (nft_id text primary key, nft_name text, nft_address text, chain_id string) VALUES (?1, ?2, ?3, ?4)`
+        )
+        .bind(nft_address, nft_name, nft_address, chain_id)
+        .run();
+    }
+
+    const holderInfo = await db
+      .prepare(`INSERT INTO ${holder_table_name} (holder_id) VALUES (?1)`)
+      .bind(holder_address)
+      .run();
+
+    console.log("nft info", info);
+    console.log("holder info", holderInfo);
+
+    const map = new Map({
+      nft_address,
+      holder_addresses: [holder_address],
+      threshold,
+    });
+
+    await map.save();
+
+    return res.status(201).json({ message: "Successfully created new map" });
+  } catch (error) {
+    console.log("error is", error);
+  }
 };
 
-exports.getDataFromWalletAddress = async (req, res, next) => {
-  const { address } = req.params;
-  const db = await getDB();
+//adds the safe address to the map
+exports.addSafeAddress = async (req, res, next) => {
+  const { id, safe_address } = req.body;
 
-  const details = await db
-    .prepare("SELECT * FROM address_key_pairs_80001_7742 WHERE address = ?1")
-    .bind(address)
-    .run();
+  try {
+    const map = await Map.findOne({ _id: id });
 
-  return res.status(200).json({ randomValue, details: details });
+    map.safe_address = safe_address;
+
+    await map.save();
+
+    return res.staus(201).json({ message: "Successfully added safe address" });
+  } catch (err) {
+    console.log("err is", err);
+  }
 };
 
-exports.getDataFromSafeAddress = async (req, res, next) => {
-  const { safeAddress } = req.params;
-  const db = await getDB();
+//get all the maps attached with the nft
+exports.getAllMapsFromNft = async (req, res, next) => {
+  const { nft_address } = req.params;
 
-  const details = await db
-    .prepare(
-      "SELECT * FROM address_key_pairs_80001_7742 WHERE safeAddress = ?1"
-    )
-    .bind(safeAddress)
-    .run();
-
-  return res.status(200).json({ randomValue, details: details });
+  try {
+  } catch (err) {
+    console.log("err is", err);
+  }
 };

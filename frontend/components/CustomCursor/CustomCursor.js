@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import classes from './CustomCursor.module.scss';
+import React, { useEffect, useRef } from "react";
+import classes from "./CustomCursor.module.scss";
 
 const CustomCursor = () => {
   const mainCursor = useRef(null);
@@ -16,9 +16,8 @@ const CustomCursor = () => {
   });
 
   useEffect(() => {
-    addEventListener('mousemove', (event) => {
+    addEventListener("mousemove", (event) => {
       const { clientX, clientY } = event;
-      console.log(event);
 
       const mouseX = clientX;
       const mouseY = clientY;
@@ -76,15 +75,11 @@ const CustomCursor = () => {
 
   return (
     <div>
-      <div
-        ref={mainCursor}
-        className={classes['main-cursor']}>
-        <div className={classes['main-cursor-background']}></div>
+      <div ref={mainCursor} className={classes["main-cursor"]}>
+        <div className={classes["main-cursor-background"]}></div>
       </div>
-      <div
-        ref={secondaryCursor}
-        className={classes['secondary-cursor']}>
-        <div className={classes['cursor-background']}></div>
+      <div ref={secondaryCursor} className={classes["secondary-cursor"]}>
+        <div className={classes["cursor-background"]}></div>
       </div>
     </div>
   );

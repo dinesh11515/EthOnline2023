@@ -8,8 +8,8 @@ const getWallet = (providerUrl, privateKey) => {
 
   return wallet;
 };
-const SafeInstance = async () => {
-  const wallet = getWallet();
+const SafeInstance = async (providerUrl, privateKey) => {
+  const wallet = getWallet(providerUrl, privateKey);
   const ethAdapter = new EthersAdapter({
     ethers,
     signerOrProvider: wallet,
@@ -20,9 +20,8 @@ const SafeInstance = async () => {
   return safeSdk;
 };
 
-const deploySafe = async (owners) => {
-  console.log("called");
-  const safeSdk = await SafeInstance();
+const deploySafe = async (owners, privateKey, providerUrl) => {
+  const safeSdk = await SafeInstance(providerUrl, privateKey);
 
   const safeAccountConfig = {
     owners,
@@ -42,7 +41,7 @@ const deploySafe = async (owners) => {
   const newSafeAddress = await safeSdkOwner1.getAddress();
   console.log("newSafeAddress", newSafeAddress);
 
-  return safeSdkOwner1;
+  return { safeSdkOwner1, newSafeAddress };
 };
 
 const addNewOwner = async (ownerAddress) => {

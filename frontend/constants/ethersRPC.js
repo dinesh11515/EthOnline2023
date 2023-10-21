@@ -10,10 +10,10 @@ export default class EthereumRpc {
   async getChainId() {
     try {
       // For ethers v5
-      // const ethersProvider = new ethers.providers.Web3Provider(this.provider);
-      const ethersProvider = new ethers.providers.JsonRpcProvider(
-        this.provider
-      );
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+      // const ethersProvider = new ethers.providers.Web3Provider(
+      //   this.provider
+      // );
       // Get the connected Chain's ID
       const networkDetails = await ethersProvider.getNetwork();
       return networkDetails.chainId;
@@ -25,10 +25,10 @@ export default class EthereumRpc {
   async getAccounts() {
     try {
       // For ethers v5
-      // const ethersProvider = new ethers.providers.Web3Provider(this.provider);
-      const ethersProvider = new ethers.providers.JsonRpcProvider(
-        this.provider
-      );
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+      // const ethersProvider = new ethers.providers.JsonRpcProvider(
+      //   this.provider
+      // );
 
       // For ethers v5
       // const signer = ethersProvider.getSigner();
@@ -46,10 +46,10 @@ export default class EthereumRpc {
   async getBalance() {
     try {
       // For ethers v5
-      // const ethersProvider = new ethers.providers.Web3Provider(this.provider);
-      const ethersProvider = new ethers.providers.JsonRpcProvider(
-        this.provider
-      );
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+      // const ethersProvider = new ethers.providers.JsonRpcProvider(
+      //   this.provider
+      // );
 
       // For ethers v5
       // const signer = ethersProvider.getSigner();
@@ -62,12 +62,12 @@ export default class EthereumRpc {
 
       // Get user's balance in ether
       // For ethers v5
-      // const balance = ethers.utils.formatEther(
-      // await ethersProvider.getBalance(address) // Balance is in wei
-      // );
       const balance = ethers.utils.formatEther(
         await ethersProvider.getBalance(address) // Balance is in wei
       );
+      // const balance = ethers.utils.formatEther(
+      //   await ethersProvider.getBalance(address) // Balance is in wei
+      // );
 
       return balance;
     } catch (error) {
@@ -78,10 +78,10 @@ export default class EthereumRpc {
   async sendTransaction() {
     try {
       // For ethers v5
-      // const ethersProvider = new ethers.providers.Web3Provider(this.provider);
-      const ethersProvider = new ethers.providers.JsonRpcProvider(
-        this.provider
-      );
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+      // const ethersProvider = new ethers.providers.JsonRpcProvider(
+      //   this.provider
+      // );
 
       // For ethers v5
       // const signer = ethersProvider.getSigner();

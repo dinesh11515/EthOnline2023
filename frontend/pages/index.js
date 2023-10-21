@@ -1,3 +1,4 @@
+import CustomCursor from '@/components/CustomCursor/CustomCursor';
 import CardComponent from '@/components/Home/NFTContainer/ContainerComp';
 
 const data = [
@@ -35,7 +36,7 @@ const data = [
 
 const Home = () => {
   return (
-    <div className='w-screen h-full flex px-10  font-Roboto'>
+    <div className='w-screen h-full flex px-10  font-Roboto index'>
       <div className='flex-[0.5] h-[80vh] sticky top-10'>
         <div className='py-10'>
           <p className='text-7xl font-semibold text-center text-gray-800'>

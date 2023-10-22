@@ -87,16 +87,14 @@ const NFT = () => {
 
             {showDetails ? (
               <p className="text-gray-500 text-sm">
-                It is a long established fact that a reader will be distracted
-                by the readable content of a page when looking at its layout.
-                The point of using Lorem Ipsum is that it has a more-or-less
-                normal distribution of letters, as opposed to using 'Content
-                here, content here', making it look like readable English. Many
-                desktop publishing packages and web page editors now use Lorem
-                Ipsum as their default model text, and a search for 'lorem
-                ipsum' will uncover many web sites still in their infancy.
-                Various versions have evolved over the years, sometimes by
-                accident, sometimes on purpose (injected humour and the like).
+                The Bored Ape Yacht Club is a collection of 10,000 unique Bored
+                Ape NFTs— unique digital collectibles living on the Ethereum
+                blockchain. Your Bored Ape doubles as your Yacht Club membership
+                card, and grants access to members-only benefits, the first of
+                which is access to THE BATHROOM, a collaborative graffiti board.
+                Future areas and perks can be unlocked by the community through
+                roadmap activation. Visit www.BoredApeYachtClub.com for more
+                details.
               </p>
             ) : null}
 

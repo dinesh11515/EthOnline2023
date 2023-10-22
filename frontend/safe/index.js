@@ -21,11 +21,17 @@ const SafeInstance = async (providerUrl, privateKey) => {
   return safeSdk;
 };
 
-const SafeService = () => {
+const SafeService = (signer) => {
+  // const provider = new ethers.providers.JsonRpcProvider(process.env.NEXT_PUBLIC_ALCHEMY_KEY);
+  // c
+  const ethAdapter = new EthersAdapter({
+    ethers,
+    signerOrProvider: signer,
+  });
   const txServiceUrl = "https://safe-transaction-goerli.safe.global";
   const safeService = new SafeApiKit({
     txServiceUrl,
-    ethAdapter: ethAdapterOwner1,
+    ethAdapter: ethAdapter,
   });
 
   return safeService;
@@ -42,7 +48,7 @@ const deploySafe = async (owners, privateKey, providerUrl) => {
 
   const safeSdkOwner1 = await safeSdk.deploySafe({
     safeAccountConfig,
-    saltNonce: Math.floor(Math.random() * 10000),
+    saltNonce: Math.floor(Math.random() * 100000),
     options: {
       gasLimit: 10000000,
     },
@@ -81,22 +87,24 @@ const getSafe = async () => {
   return safeWallet;
 };
 
-const sendTransaction = async (signer, safeAddress) => {
-  const enc = ethers.utils.defaultAbiCoder();
+const sendTransaction = async (safeAddress, signer) => {
+  console.log("s", safeAddress);
+  // const enc = ethers.utils.defaultAbiCoder();
 
-  const data = ethers.utils.keccak256("");
+  // const data = ethers.utils.keccak256("");
   const safeTransactionData = {
     to: "0x4059b219e66676C1c71cdF58aE0EA5d505268a5c",
-    data: `0xa1448194000000000000000000000000${safeAddress.slice(
+    data: `0xa1448194000000000000000000000000${safeAddress?.slice(
       2
     )}0000000000000000000000000000000000000000000000000000000000000006`,
-    value: "0.001",
+    value: "0.0001",
   };
   //checkout how to create transaction later
 
   const safeSdkConfig = {
     ethers,
     signerOrProvider: signer,
+    contractNetworks: {},
   };
 
   //get safeSDKOwner1 from backend that you stored corresponging to the user
@@ -110,7 +118,7 @@ const sendTransaction = async (signer, safeAddress) => {
 
   const senderSignature = await safeSdkOwner1.signTransactionHash(safeTxHash);
 
-  const safeService = SafeService();
+  const safeService = SafeService(signer);
   await safeService.proposeTransaction({
     safeAddress,
     safeTransactionData: safeTransaction.data,
@@ -121,10 +129,10 @@ const sendTransaction = async (signer, safeAddress) => {
 };
 
 export const confirmTransaction = async (safeAddress, signer) => {
-  const safeService = SafeService();
+  const safeService = SafeService(signer);
   const pendingTransactions = await safeService.getPendingTransactions(
     safeAddress
-  ).result;
+  ).results;
 
   const transaction = pendingTransactions[0];
   const safeTxHash = transaction.safeTxHash;
@@ -145,16 +153,35 @@ export const confirmTransaction = async (safeAddress, signer) => {
     signature.data
   );
 };
-const getPendingTransactions = async (safeAddress) => {
-  const safeService = SafeService();
+const getPendingTransactions = async (safeAddress, signer) => {
+  const safeService = SafeService(signer);
+  console.log("safe", safeService);
   const pendingTransactions = await safeService.getPendingTransactions(
     safeAddress
-  ).results;
+  );
+
+  console.log("pending", pendingTransactions);
 
   // Assumes that the first pending transaction is the transaction you want to confirm
-  const transaction = pendingTransactions[0];
+  const transaction = pendingTransactions.results;
 
   return transaction;
 };
 
-export { deploySafe, sendTransaction, getPendingTransactions };
+const sendEthToSafe = async (safeAddress, privateKey) => {
+  const safeAmount = ethers.utils.parseUnits("0.0001", "ether").toHexString();
+  const provider = new ethers.providers.JsonRpcProvider(
+    process.env.NEXT_PUBLIC_ALCHEMY_KEY
+  );
+  const wallet = new ethers.Wallet(privateKey, provider);
+  console.log("watt", wallet);
+  const transactionParameters = {
+    to: safeAddress,
+    value: safeAmount,
+  };
+
+  const tx = await wallet.sendTransaction(transactionParameters);
+
+  console.log("tx is", tx);
+};
+export { deploySafe, sendTransaction, getPendingTransactions, sendEthToSafe };

@@ -81,9 +81,14 @@ const getSafe = async () => {
 };
 
 const sendTransaction = async (signer, safeAddress) => {
+  const enc = ethers.utils.defaultAbiCoder();
+
+  const data = ethers.utils.keccak256("");
   const safeTransactionData = {
     to: "0x4059b219e66676C1c71cdF58aE0EA5d505268a5c",
-    data: "0xa1448194000000000000000000000000e643cf465ede9ad11e152bab8d3cdc6cbc3712e10000000000000000000000000000000000000000000000000000000000000006",
+    data: `0xa1448194000000000000000000000000${safeAddress.slice(
+      2
+    )}0000000000000000000000000000000000000000000000000000000000000006`,
     value: "0.001",
   };
   //checkout how to create transaction later

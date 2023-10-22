@@ -1,84 +1,28 @@
-import Navbar from '@/components/Navbar/Navbar';
-import Image from 'next/image';
-import NFTCard from '@/components/NFTCard/NFTCard';
+import Navbar from "@/components/Navbar/Navbar";
+import Image from "next/image";
+import NFTCard from "@/components/NFTCard/NFTCard";
 
 const DEMO_NFTS = [
   {
     id: 1,
-    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    image: '/assets/nft10.gif',
-    price: '100',
-    dollarPrice: '20382',
-    name: 'Bored Ape #4411',
-  },
-  {
-    id: 2,
-    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    image: '/assets/nft3.jpeg',
-    price: '100',
-    dollarPrice: '20382',
-    name: 'Borde Ape #121',
-  },
-  {
-    id: 3,
-    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    image: '/assets/nft4.gif',
-    price: '100',
-    dollarPrice: '20382',
-    name: 'Borde Ape #121',
-  },
-  {
-    id: 4,
-    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    image: '/assets/nft5.jpeg',
-    price: '100',
-    dollarPrice: '20382',
-    name: 'Borde Ape #121',
-  },
-  {
-    id: 5,
-    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    image: '/assets/nft6.jpeg',
-    price: '100',
-    dollarPrice: '20382',
-    name: 'Borde Ape #121',
-  },
-  {
-    id: 6,
-    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    image: '/assets/nft1.svg',
-    price: '100',
-    dollarPrice: '20382',
-    name: 'Borde Ape #121',
-  },
-  {
-    id: 7,
-    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    image: '/assets/nft2.svg',
-    price: '100',
-    dollarPrice: '20382',
-    name: 'Borde Ape #121',
-  },
-  {
-    id: 8,
-    address: '0xBC4CA0EdA7647A8aB7C2061c2E118A18a936f13D',
-    image: '/assets/nft9.gif',
-    price: '100',
-    dollarPrice: '20382',
-    name: 'Borde Ape #121',
+    address: "0x4059b219e66676C1c71cdF58aE0EA5d505268a5c",
+    image: "/assets/threejocks.jpeg",
+    price: "0.01",
+    dollarPrice: "16.3",
+    name: "3Jokers",
   },
 ];
 
 const Nfts = () => {
   return (
-    <div className='pt-4'>
-      <div className='pl-28 pr-10 py-10 font-Poppins'>
-        <p className='text-3xl font-semibold'>Exclusive NFTs</p>
-        <p className='font-Poppins text-gray-500 '>
+    <div className="pt-4">
+      <div className="pl-28 pr-10 py-10 font-Poppins">
+        <p className="text-3xl font-semibold">Exclusive NFTs</p>
+        <p className="font-Poppins text-gray-500 ">
           Enjoy the latest NFTs from ApeCoin
         </p>
 
-        <div className='flex gap-8 flex-wrap mt-6'>
+        <div className="flex gap-8 flex-wrap mt-6">
           {DEMO_NFTS.map((nft) => (
             <NFTCard
               key={nft.id}

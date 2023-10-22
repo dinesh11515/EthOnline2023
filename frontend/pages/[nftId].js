@@ -12,7 +12,7 @@ const NFT = () => {
   const [showGroups, setShowGroups] = useState(false);
   const [groups, setGroups] = useState([]);
   const router = useRouter();
-  const price = 123.45;
+  const price = 0.01;
 
   const { nftId } = router.query;
 
@@ -40,7 +40,7 @@ const NFT = () => {
       <div className="flex w-full font-Poppins">
         <div className="flex-[0.55] bg-gray-100 border-y-2 border-r-2 border-gray-300 flex items-center justify-center p-10 pl-20">
           <Image
-            src="/assets/nft2.svg"
+            src="/assets/threejocks.jpeg"
             height={650}
             width={650}
             className="rounded-xl"
@@ -49,9 +49,7 @@ const NFT = () => {
         <div className="flex-[0.45] flex flex-col justify-between border-y-2 border-gray-300 py-10 px-6">
           <div>
             <div className="flex justify-between items-center">
-              <p className="text-3xl font-semibold text-[#1e1e1e]">
-                Bored Ape #21212
-              </p>
+              <p className="text-3xl font-semibold text-[#1e1e1e]">3Jockers</p>
               <Image src="/assets/eth.png" height={35} width={35} />
             </div>
 

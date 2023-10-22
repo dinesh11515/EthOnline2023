@@ -115,6 +115,8 @@ const Create = () => {
                     <option selected>Select chain here</option>
                     <option value={137}>Polygon</option>
                     <option value={534352}>Scroll</option>
+                    <option value={534352}>Mantle</option>
+
                   </select>
                 </div>
               </div>

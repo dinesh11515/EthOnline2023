@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { RiHomeLine } from 'react-icons/ri';
 import { RxDashboard } from 'react-icons/rx';
-import { IoMdSettings } from 'react-icons/io';
+import { BiSolidCloudDownload } from 'react-icons/bi';
 import { MdCreateNewFolder } from 'react-icons/md';
 import Link from 'next/link';
 
@@ -22,9 +22,9 @@ const links = [
     link: '/create',
   },
   {
-    name: 'Settings',
-    icon: <IoMdSettings size={20} />,
-    link: '/settings',
+    name: 'Owned',
+    icon: <BiSolidCloudDownload size={20} />,
+    link: '/owned',
   },
 ];
 

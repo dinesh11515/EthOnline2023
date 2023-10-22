@@ -42,6 +42,9 @@ Our core contract was deployed on Polygon Mumbai testnet
 
 Our core contract was deployed on Polygon Mumbai testnet
 
+
+[Tweet link](https://x.com/dineshaitham1/status/1716152960504471656?s=46&t=k4KrgniAYumb04C1Vpo9Aw)
+
 [contract link](https://explorer.testnet.mantle.xyz/address/0xB0C4BD373936511D09fC6cb0Da87E6c74241Abb7)
 
 

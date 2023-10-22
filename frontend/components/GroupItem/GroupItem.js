@@ -141,15 +141,15 @@ const GroupItem = ({ group, price }) => {
                   group.safe_address.substring(37, 42)}
             </p>
           </div>
-          <button
-            className="bg-blue-400 rounded-md px-7 py-2 text-white cursor-none"
-            onClick={joinGroupHandler}
-          >
-            {loading ? <Loader inComp={true} /> : status}
-          </button>
         </div>
-        <ToastContainer />
+        <button
+          className="bg-blue-400 rounded-md px-7 py-2 text-white cursor-none"
+          onClick={joinGroupHandler}
+        >
+          {loading ? <Loader inComp={true} /> : status}
+        </button>
       </div>
+      <ToastContainer />
     </>
   );
 };

@@ -17,14 +17,18 @@ const NFT = () => {
   const { nftId } = router.query;
 
   const getGroupsData = async () => {
-    console.log("here");
-    const data = await fetch(`${SERVER_URL}/all/${nftId}`, {
-      cache: "no-store",
-    });
+    try {
+      console.log("here");
+      const data = await fetch(`${SERVER_URL}/all/${nftId}`, {
+        cache: "no-store",
+      });
 
-    const response = await data.json();
+      const response = await data.json();
 
-    setGroups(response.allMaps);
+      setGroups(response.allMaps);
+    } catch (e) {
+      console.log("getGroups", e);
+    }
   };
 
   useEffect(() => {

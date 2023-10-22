@@ -12,7 +12,7 @@ const NFT = () => {
   const [showGroups, setShowGroups] = useState(false);
   const [groups, setGroups] = useState([]);
   const router = useRouter();
-  console.log("ere");
+  const price = 123.45;
 
   const { nftId } = router.query;
 
@@ -99,13 +99,13 @@ const NFT = () => {
             {showGroups ? (
               <div className="border border-gray-300 rounded-xl h-[280px] p-4 overflow-y-scroll ">
                 {groups.map((group) => (
-                  <GroupItem key={group.id} group={group} />
+                  <GroupItem key={group.id} group={group} price={price} />
                 ))}
               </div>
             ) : null}
           </div>
 
-          <BuyButton />
+          <BuyButton price={price} />
         </div>
       </div>
     </div>

@@ -20,12 +20,12 @@ const HomeButton = () => {
         web3AuthNetwork: "sapphire_mainnet", // Web3Auth Network
         chainConfig: {
           chainNamespace: "eip155",
-          chainId: "0x13881",
-          rpcTarget: "https://rpc.ankr.com/polygon_mumbai",
-          displayName: "Polygon Mumbai Testnet",
-          blockExplorer: "https://mumbai.polygonscan.com/",
-          ticker: "MATIC",
-          tickerName: "Matic",
+          chainId: "0x5",
+          rpcTarget: "https://rpc.ankr.com/eth_goerli",
+          displayName: "Goerli Testnet",
+          blockExplorer: "https://goerli.etherscan.io",
+          ticker: "ETH",
+          tickerName: "Ethereum",
         },
       });
       await web3auth.initModal();

@@ -1,15 +1,52 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import { useContext } from "react";
 import { StateContext } from "@/store/StateContext";
-import { SERVER_URL } from "@/constants";
-import { deploySafe } from "@/safe";
+import { ERC20_ABI, SERVER_URL } from "@/constants";
+import {
+  confirmTransaction,
+  deploySafe,
+  getPendingTransactions,
+  sendTransaction,
+} from "@/safe";
 
-const GroupItem = ({ group }) => {
+import { useEffect } from "react";
+import { ethers } from "ethers";
+
+const GroupItem = ({ group, price }) => {
+  const [status, setStatus] = useState("Join");
   const ctx = useContext(StateContext);
 
+  const depositFundsOrBuy = async () => {
+    if (group.safe_address) {
+      const signer = await ctx.rpc.getSinger();
+      const contract = new ethers.Contract(
+        "0x328507DC29C95c170B56a1b3A758eB7a9E73455c",
+        ERC20_ABI,
+        signer
+      );
+
+      const balance = await contract.balanceOf(group.safe_address);
+
+      console.log("balance is", balance);
+
+      if (balance > price) {
+        setStatus("Buy");
+        return;
+      }
+
+      setStatus("Deposit");
+    } else if (group.holder_addresses?.length >= group.threshold) {
+      setStatus("Deploy");
+    }
+  };
+
+  useEffect(() => {
+    depositFundsOrBuy();
+  }, []);
+
   const joinGroupHandler = async () => {
-    if (group.holder_addresses?.length == group.threshold) {
+    if (status === "Deploy") {
       const { newSafeAddress } = await deploySafe(
         group.holder_addresses,
         process.env.NEXT_PUBLIC_PRIVATE_KEY,
@@ -30,22 +67,48 @@ const GroupItem = ({ group }) => {
       const response = await data.json();
 
       console.log("respons is", response);
+
+      return;
+    } else if (status === "Join") {
+      const address = await ctx.rpc.getAccounts();
+      const data = await fetch(`${SERVER_URL}/new-holder`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          id: group._id,
+          holder_address: address,
+        }),
+      });
+
+      const response = await data.json();
+      console.log("response is", response);
+    } else if (status === "Deposit") {
+      const contract = new ethers.Contract(
+        "0x328507DC29C95c170B56a1b3A758eB7a9E73455c",
+        ERC20_ABI,
+        signer
+      );
+
+      const tx = await contract.transfer(
+        group.safe_address,
+        price / group.threshold
+      );
+
+      await tx.wait();
+    } else if (status === "Buy") {
+      const signer = await ctx.rpc.getSinger();
+      const pendingTransaction = await getPendingTransactions(
+        group.safe_address
+      );
+
+      if (pendingTransaction) {
+        await confirmTransaction(group.safe_address, signer);
+      } else {
+        await sendTransaction(group.safe_address, signer);
+      }
     }
-
-    const address = await ctx.rpc.getAccounts();
-    const data = await fetch(`${SERVER_URL}/new-holder`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        id: group._id,
-        holder_address: address,
-      }),
-    });
-
-    const response = await data.json();
-    console.log("response is", response);
   };
 
   return (
@@ -68,7 +131,11 @@ const GroupItem = ({ group }) => {
         className="bg-blue-400 rounded-md px-7 py-2 text-white cursor-none"
         onClick={joinGroupHandler}
       >
-        {group.holder_addresses?.length == group.threshold ? "Buy" : "Join"}
+        {group.holder_addresses?.length >= group.threshold
+          ? group.safe_address
+            ? "Deposit"
+            : "Buy"
+          : "Join"}
       </button>
     </div>
   );

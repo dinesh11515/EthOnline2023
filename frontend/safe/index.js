@@ -1,5 +1,6 @@
 import Safe, { SafeFactory, EthersAdapter } from "@safe-global/protocol-kit";
 import { ethers } from "ethers";
+import SafeApiKit from "@safe-global/api-kit";
 
 const getWallet = (providerUrl, privateKey) => {
   const provider = new ethers.providers.JsonRpcProvider(providerUrl);
@@ -18,6 +19,16 @@ const SafeInstance = async (providerUrl, privateKey) => {
   const safeSdk = await SafeFactory.create({ ethAdapter });
 
   return safeSdk;
+};
+
+const SafeService = () => {
+  const txServiceUrl = "https://safe-transaction-goerli.safe.global";
+  const safeService = new SafeApiKit({
+    txServiceUrl,
+    ethAdapter: ethAdapterOwner1,
+  });
+
+  return safeService;
 };
 
 const deploySafe = async (owners, privateKey, providerUrl) => {
@@ -69,17 +80,75 @@ const getSafe = async () => {
   return safeWallet;
 };
 
-const sendTransaction = async (destination, amount) => {
+const sendTransaction = async (signer, safeAddress) => {
   const safeTransactionData = {
-    to: destination,
-    data: "0x",
-    value: amount,
+    to: "0x4059b219e66676C1c71cdF58aE0EA5d505268a5c",
+    data: "0xa1448194000000000000000000000000e643cf465ede9ad11e152bab8d3cdc6cbc3712e10000000000000000000000000000000000000000000000000000000000000006",
+    value: "0.001",
   };
   //checkout how to create transaction later
 
+  const safeSdkConfig = {
+    ethers,
+    signerOrProvider: signer,
+  };
+
   //get safeSDKOwner1 from backend that you stored corresponging to the user
   // then make transaction here
-  // const safeTransaction = await
+  const safeSdk = await Safe.create({ safeSdkConfig, safeAddress });
+  const safeTransaction = await safeSdk.createTransaction({
+    safeTransactionData,
+  });
+
+  const safeTxHash = await safeSdkOwner1.getTransactionHash(safeTransaction);
+
+  const senderSignature = await safeSdkOwner1.signTransactionHash(safeTxHash);
+
+  const safeService = SafeService();
+  await safeService.proposeTransaction({
+    safeAddress,
+    safeTransactionData: safeTransaction.data,
+    safeTxHash,
+    senderAddress: await signer.getAddress(),
+    senderSignature: senderSignature.data,
+  });
 };
 
-export { deploySafe };
+export const confirmTransaction = async (safeAddress, signer) => {
+  const safeService = SafeService();
+  const pendingTransactions = await safeService.getPendingTransactions(
+    safeAddress
+  ).result;
+
+  const transaction = pendingTransactions[0];
+  const safeTxHash = transaction.safeTxHash;
+
+  const ethAdapterOwner2 = new EthersAdapter({
+    ethers,
+    signerOrProvider: signer,
+  });
+
+  const safeSdkOwner2 = await Safe.create({
+    ethAdapter: ethAdapterOwner2,
+    safeAddress,
+  });
+
+  const signature = await safeSdkOwner2.signTransactionHash(safeTxHash);
+  const response = await safeService.confirmTransaction(
+    safeTxHash,
+    signature.data
+  );
+};
+const getPendingTransactions = async (safeAddress) => {
+  const safeService = SafeService();
+  const pendingTransactions = await safeService.getPendingTransactions(
+    safeAddress
+  ).results;
+
+  // Assumes that the first pending transaction is the transaction you want to confirm
+  const transaction = pendingTransactions[0];
+
+  return transaction;
+};
+
+export { deploySafe, sendTransaction, getPendingTransactions };

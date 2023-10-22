@@ -59,7 +59,7 @@ const BuyModal = ({ onClose }) => {
           //data goes here aman mfer
           nft_address: nftId,
           threshold: groupCapacity,
-          chain_id: "0x1881",
+          chain_id: "0x5",
           name: groupName,
           holder_address: address,
           nft_name: "Bored Ape",

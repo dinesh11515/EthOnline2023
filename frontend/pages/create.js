@@ -11,7 +11,6 @@ const Create = () => {
   const [numberOfBuyers, setNumberOfBuyers] = useState("");
   const [chain, setChain] = useState("");
   const { verified, setVerified } = useContext(StateContext);
-  console.log(verified);
   const submitHandler = async (e) => {
     try {
       e.preventDefault();

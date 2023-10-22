@@ -1,3 +1,4 @@
+import Navbar from '@/components/Navbar/Navbar';
 import Image from 'next/image';
 import React, { useState } from 'react';
 
@@ -18,8 +19,9 @@ const Create = () => {
   };
 
   return (
-    <div className='w-screen min-h-screen py-20 font-Poppins bg-blue-50 '>
-      <div className='flex w-[80%] mx-auto  h-fit rounded-r-[50px] overflow-hidden'>
+    <div className='w-screen min-h-screen py-4 font-Poppins bg-blue-50 '>
+      <Navbar />
+      <div className='flex w-[80%] mx-auto py-6  h-fit rounded-r-[50px] overflow-hidden'>
         <div className='flex-[0.5] flex flex-col py-20 px-10 justify-center  bg-[#fff] rounded-l-[50px]'>
           <p className='text-2xl font-semibold text-center'>
             Put your NFT on sale!

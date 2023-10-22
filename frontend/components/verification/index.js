@@ -17,7 +17,7 @@ export const Sismo = () => {
   const { verified, setVerified } = useContext(StateContext);
 
   return (
-    <div className="text-center">
+    <div className="text-center ">
       <SismoConnectButton
         config={config}
         auths={[

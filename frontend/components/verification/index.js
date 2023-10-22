@@ -12,6 +12,7 @@ const config = {
 };
 import { StateContext } from "@/store/StateContext";
 import { useContext } from "react";
+
 export const Sismo = () => {
   const { verified, setVerified } = useContext(StateContext);
 

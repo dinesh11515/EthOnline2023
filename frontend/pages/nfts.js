@@ -72,7 +72,6 @@ const DEMO_NFTS = [
 const Nfts = () => {
   return (
     <div className='pt-4'>
-      <Navbar />
       <div className='pl-28 pr-10 py-10 font-Poppins'>
         <p className='text-3xl font-semibold'>Exclusive NFTs</p>
         <p className='font-Poppins text-gray-500 '>

@@ -26,6 +26,7 @@
     "@web3auth/torus-wallet-connector-plugin": "^7.0.1",
     "@web3auth/wallet-connect-v2-adapter": "^7.0.2",
     "autoprefixer": "10.4.16",
+    "copy-to-clipboard": "^3.3.3",
     "dotenv": "^16.3.1",
     "eslint": "8.51.0",
     "eslint-config-next": "13.5.5",

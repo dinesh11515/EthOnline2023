@@ -32,6 +32,7 @@ const SafeService = () => {
 };
 
 const deploySafe = async (owners, privateKey, providerUrl) => {
+  console.log("called");
   const safeSdk = await SafeInstance(providerUrl, privateKey);
 
   const safeAccountConfig = {

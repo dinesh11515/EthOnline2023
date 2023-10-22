@@ -19,7 +19,7 @@ const GroupItem = ({ group, price }) => {
 
   const depositFundsOrBuy = async () => {
     if (group.safe_address) {
-      const signer = await ctx.rpc.getSinger();
+      const signer = await ctx.rpc.getSigner();
       const contract = new ethers.Contract(
         "0x328507DC29C95c170B56a1b3A758eB7a9E73455c",
         ERC20_ABI,
@@ -46,6 +46,7 @@ const GroupItem = ({ group, price }) => {
   }, []);
 
   const joinGroupHandler = async () => {
+    const signer = await ctx.rpc.getSigner();
     if (status === "Deploy") {
       const { newSafeAddress } = await deploySafe(
         group.holder_addresses,
@@ -93,8 +94,10 @@ const GroupItem = ({ group, price }) => {
 
       const tx = await contract.transfer(
         group.safe_address,
-        price / group.threshold
+        ethers.utils.parseUnits((price / group.threshold).toString(), "ether")
       );
+
+      console.log("tx is", tx);
 
       await tx.wait();
     } else if (status === "Buy") {
@@ -131,11 +134,7 @@ const GroupItem = ({ group, price }) => {
         className="bg-blue-400 rounded-md px-7 py-2 text-white cursor-none"
         onClick={joinGroupHandler}
       >
-        {group.holder_addresses?.length >= group.threshold
-          ? group.safe_address
-            ? "Deposit"
-            : "Buy"
-          : "Join"}
+        {status}
       </button>
     </div>
   );

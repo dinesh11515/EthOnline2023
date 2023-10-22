@@ -44,6 +44,23 @@ export default class EthereumRpc {
     }
   }
 
+  async getSigner() {
+    try {
+      const ethersProvider = new ethers.providers.Web3Provider(this.provider);
+      // const ethersProvider = new ethers.providers.JsonRpcProvider(
+      //   this.provider
+      // );
+
+      // For ethers v5
+      // const signer = ethersProvider.getSigner();
+      const signer = ethersProvider.getSigner();
+
+      return signer;
+    } catch (error) {
+      return error;
+    }
+  }
+
   async getBalance() {
     try {
       // For ethers v5

@@ -13,7 +13,7 @@ const BuyButton = (props) => {
         <p className="text-sm mb-1">Current Price</p>
         <p className="text-3xl font-semibold">
           {props.price + " "}
-          <span className="text-sm font-normal text-gray-300">$192,343,12</span>
+          <span className="text-sm font-normal text-gray-300">$130,645</span>
         </p>
 
         <button
